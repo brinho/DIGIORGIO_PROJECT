@@ -1,6 +1,8 @@
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
@@ -8,8 +10,8 @@ public class Server extends UnicastRemoteObject implements Services {
     FilmList film_list = new FilmList();
 
     public Server() throws RemoteException {
-        //super(1103);
-        super();
+        super(1103);
+        //super();
     }
 
     @Override
@@ -78,8 +80,8 @@ public class Server extends UnicastRemoteObject implements Services {
         System.out.println("------------------------");
         try {
             // if not localhost
-            //System.setProperty("java.rmi.server.hostname","whitelodge.ns0.it");
-            //Registry registry = LocateRegistry.getRegistry();
+            System.setProperty("java.rmi.server.hostname","whitelodge.ns0.it");
+            Registry registry = LocateRegistry.getRegistry();
 
             Services services = new Server();
             Naming.rebind("filmservice",services);
