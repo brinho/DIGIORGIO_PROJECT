@@ -53,8 +53,8 @@ public class Client {
                             server.addFilm(f1);
                         } else if( scelta1 == 2 ) {
                             System.out.print("Titolo:");
-                            //String titolo = sc1.nextLine();
-                            String titolo2 = sc1.next();
+                            String titolo2 = sc1.nextLine();
+                            //String titolo2 = sc1.next();
                             System.out.print("Anno:");
                             int anno2 = sc1.nextInt();
                             System.out.print("Durata(minuti):");
