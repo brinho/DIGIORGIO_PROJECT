@@ -10,8 +10,8 @@ public class Server extends UnicastRemoteObject implements Services {
     FilmList film_list = new FilmList();
 
     public Server() throws RemoteException {
-        super(1103);
-        //super();
+        //super(1103);
+        super();
     }
 
     @Override
@@ -74,14 +74,14 @@ public class Server extends UnicastRemoteObject implements Services {
     }
 
 
-    public static void main(String args[]){
+    public static void main(String[] args){
         System.out.println("------------------------");
         System.out.println("Starting the service ...");
         System.out.println("------------------------");
         try {
             // if not localhost
-            System.setProperty("java.rmi.server.hostname","whitelodge.ns0.it");
-            Registry registry = LocateRegistry.getRegistry();
+            //System.setProperty("java.rmi.server.hostname","whitelodge.ns0.it");
+            //Registry registry = LocateRegistry.getRegistry();
 
             Services services = new Server();
             Naming.rebind("filmservice",services);

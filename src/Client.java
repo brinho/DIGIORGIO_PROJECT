@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Client {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         if (args.length!=2)  {
             System.out.println("Usage: java Client <server address> <service name>");
@@ -25,6 +25,7 @@ public class Client {
             Scanner user_input = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
             Scanner sc2 = new Scanner(System.in);
+            int choice = user_input.nextInt();
             while (go) {
                 System.out.println("--------------------------------");
                 System.out.println(" 0 - ADD");
@@ -35,7 +36,6 @@ public class Client {
                 System.out.println(" 5 - QUIT ");
                 System.out.println("--------------------------------");
                 System.out.print(" choice:");
-                int choice = user_input.nextInt();
 
                 switch (choice) {
                     case 0://ADD
@@ -43,8 +43,8 @@ public class Client {
                         int scelta1 = sc2.nextInt();
                         if( scelta1 == 1 ) {
                             System.out.print("Titolo:");
-                            //String titolo = sc1.nextLine();
-                            String titolo = sc1.next();
+                            String titolo = sc1.nextLine();
+                            //String titolo = sc1.next();
                             System.out.print("Anno:");
                             int anno = sc1.nextInt();
                             System.out.print("Durata(minuti):");
