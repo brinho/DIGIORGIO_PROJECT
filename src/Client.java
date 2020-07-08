@@ -43,8 +43,8 @@ public class Client {
                         int scelta1 = sc2.nextInt();
                         if( scelta1 == 1 ) {
                             System.out.print("Titolo:");
-                            String titolo = sc1.nextLine();
-                            //String titolo = sc1.next();
+                            //String titolo = sc1.nextLine();
+                            String titolo = sc1.next();
                             System.out.print("Anno:");
                             int anno = sc1.nextInt();
                             System.out.print("Durata(minuti):");
@@ -53,8 +53,8 @@ public class Client {
                             server.addFilm(f1);
                         } else if( scelta1 == 2 ) {
                             System.out.print("Titolo:");
-                            String titolo2 = sc1.nextLine();
-                            //String titolo2 = sc1.next();
+                            //String titolo2 = sc1.nextLine();
+                            String titolo2 = sc1.next();
                             System.out.print("Anno:");
                             int anno2 = sc1.nextInt();
                             System.out.print("Durata(minuti):");
