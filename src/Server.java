@@ -58,7 +58,7 @@ public class Server extends UnicastRemoteObject implements Services {
 
     public void removeCortoAll() throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking removeCortoAll()");
-        film_list.removeAll();
+        film_list.removeCortoAll();
     }
 
     @Override
