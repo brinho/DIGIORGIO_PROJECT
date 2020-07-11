@@ -105,10 +105,9 @@ public class Client {
 
                     case 2://LIST
                         System.out.print("Opzioni di list: [1] list film , [2] list cortometraggio :");
-                        ArrayList<Film> f_list = server.getList();
-                        ArrayList<Cortometraggio> c_list = server.getCortoList();
                         int scelta5 = sc2.nextInt();
                         if( scelta5 == 1 ){
+                            ArrayList<Film> f_list = server.getList();
                         if(f_list.isEmpty()){
                             System.out.println("Empty film list!");
                         }else {
@@ -116,6 +115,7 @@ public class Client {
                             System.out.println(f_list);
                         }
                         }else if ( scelta5 == 2 ){
+                            ArrayList<Cortometraggio> c_list = server.getCortoList();
                             if(c_list.isEmpty()){
                                 System.out.println("Empty corto list!");
                             }else {
