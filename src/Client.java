@@ -20,6 +20,7 @@ public class Client {
 
 
         try {
+            System.out.println("Ciao brian");
             Services server = (Services) Naming.lookup("rmi://" + address + "/" + service_name);
             boolean go = true;
             Scanner user_input = new Scanner(System.in);
