@@ -7,6 +7,11 @@ public class Cortometraggio extends Film {
         this.metraggio = metraggio;
     }
 
+    public Cortometraggio(String titolo, Integer anno, Integer durata,Boolean visto, Integer metraggio) {
+        super(titolo, anno, durata,visto);
+        this.metraggio = metraggio;
+    }
+
     public Integer getMetraggio() {
         return metraggio;
     }

@@ -1,7 +1,4 @@
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 
 public class FilmList {
@@ -66,6 +63,26 @@ public class FilmList {
             e.printStackTrace();
         }
 
+    }
+
+    public void saveFilmFile(ArrayList<Film> list){
+        String tmp = list.toString();
+        try (var myWriter = new BufferedWriter(new FileWriter(("film_list.txt"))))  {
+            myWriter.write(tmp);
+            System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " Scritto correttamente sul file!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveCortoFile(ArrayList<Cortometraggio> c_list){
+        String tmp = c_list.toString();
+        try (var myWriter = new BufferedWriter(new FileWriter(("corto_list.txt"))))  {
+            myWriter.write(tmp);
+            System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " Scritto correttamente sul file!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

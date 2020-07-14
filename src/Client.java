@@ -20,24 +20,25 @@ public class Client {
 
 
         try {
-            System.out.println("Ciao brian");
             Services server = (Services) Naming.lookup("rmi://" + address + "/" + service_name);
             boolean go = true;
             Scanner user_input = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
             Scanner sc2 = new Scanner(System.in);
-            int choice = user_input.nextInt();
+
             while (go) {
+
                 System.out.println("--------------------------------");
                 System.out.println(" 0 - ADD");
                 System.out.println(" 1 - REMOVE ");
                 System.out.println(" 2 - LIST ");
                 System.out.println(" 3 - SAVE ");
                 System.out.println(" 4 - SORT ");
-                System.out.println(" 5 - QUIT ");
+                System.out.println(" 5 - SAVE ON FILE ");
+                System.out.println(" 6 - QUIT ");
                 System.out.println("--------------------------------");
                 System.out.print(" choice:");
-
+                int choice = user_input.nextInt();
                 switch (choice) {
                     case 0://ADD
                         System.out.print("Opzioni di add: [1] add film , [2] add cortometraggio :");
@@ -52,10 +53,17 @@ public class Client {
                             int durata = sc1.nextInt();
                             System.out.print("Visto(inserire true o false):");
                             boolean visto = sc1.nextBoolean();
-                            System.out.print("Voto(da 1 a 10):");
-                            int voto = sc1.nextInt();
-                            Film f1 = new Film(titolo, anno, durata,voto,visto);
-                            server.addFilm(f1);
+                            if( visto == true){
+                                System.out.print("Voto(da 1 a 10):");
+                                int voto = sc1.nextInt();
+                                Film f1 = new Film(titolo, anno, durata,voto,visto);
+                                server.addFilm(f1);
+                            }
+                            else{
+                                Film f2 = new Film(titolo, anno, durata,visto);
+                                server.addFilm(f2);
+                            }
+
                         } else if( scelta1 == 2 ) {
                             System.out.print("Titolo:");
                             //String titolo2 = sc1.nextLine();
@@ -68,10 +76,19 @@ public class Client {
                             int metraggio = sc1.nextInt();
                             System.out.print("Visto(inserire true o false):");
                             boolean visto2 = sc1.nextBoolean();
-                            System.out.print("Voto:");
-                            int voto2 = sc1.nextInt();
-                            Cortometraggio c1 = new Cortometraggio(titolo2,anno2,durata2,voto2,visto2,metraggio);
-                            server.addCorto(c1);
+                            if( visto2 == true){
+                                System.out.print("Voto(da 1 a 10):");
+                                int voto2 = sc1.nextInt();
+                                Cortometraggio c1 = new Cortometraggio(titolo2,anno2,durata2,voto2,visto2,metraggio);
+                                server.addCorto(c1);
+                            }
+                            else{
+                                Cortometraggio c2 = new Cortometraggio(titolo2,anno2,durata2,visto2,metraggio);
+                                server.addCorto(c2);
+                            }
+
+
+
                         }else{
                             System.out.println("Inserimento non valido, riprovare!");
                         }
@@ -192,7 +209,22 @@ public class Client {
                         }
 
                         break;
-                    case 5://QUIT
+                    case 5://SAVE ON FILE
+                        System.out.print("Opzioni di save: [1] save film , [2] save cortometraggio :");
+                        int scelta9 = sc2.nextInt();
+                        if(scelta9 == 1){
+                            ArrayList<Film> list = server.getList();
+                            server.saveFilmFile(list);
+                            System.out.println("Film Save on file completed!");
+                        }else if(scelta9 == 2) {
+                            ArrayList<Cortometraggio> c1_list = server.getCortoList();
+                            server.saveCortoFile(c1_list);
+                            System.out.println("Corto Save on file completed!");
+                        }else{
+                            System.out.println("Inserimento non valido, riprovare!");
+                        }
+                        break;
+                    case 6://QUIT
                         go = false;
                         System.out.println("Quitting client: "+ Thread.currentThread().getName());
                         break;

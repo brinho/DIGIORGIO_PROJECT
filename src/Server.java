@@ -73,6 +73,18 @@ public class Server extends UnicastRemoteObject implements Services {
         film_list.saveCortoList(list);
     }
 
+    @Override
+    public void saveFilmFile(ArrayList<Film> list) throws RemoteException{
+        System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking saveFilmFile()");
+        film_list.saveFilmFile(list);
+    }
+
+    @Override
+    public void saveCortoFile(ArrayList<Cortometraggio> c_list) throws RemoteException{
+        System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking saveCortoFile()");
+        film_list.saveCortoFile(c_list);
+    }
+
 
     public static void main(String[] args){
         System.out.println("------------------------");

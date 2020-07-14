@@ -16,6 +16,15 @@ public class Film implements Serializable, Comparable<Film> {
         this.visto = visto;
     }
 
+    public Film(String titolo,Integer anno,Integer durata,Boolean visto) {
+        this.titolo = titolo;
+        this.anno = anno;
+        this.durata = durata;
+        this.visto = visto;
+        this.voto = 1; //valore piu basso della scala da 1 a 10.
+
+    }
+
     public Integer getVoto() {
         return voto;
     }

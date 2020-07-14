@@ -13,5 +13,7 @@ public interface Services extends Remote {
     public void removeCorto(int index) throws RemoteException;
     public void removeCortoAll() throws RemoteException;
     public void saveCortoList(ArrayList<Cortometraggio> list) throws RemoteException;
+    public void saveFilmFile(ArrayList<Film> list) throws RemoteException;
+    public void saveCortoFile(ArrayList<Cortometraggio> c_list) throws RemoteException;
 
 }
