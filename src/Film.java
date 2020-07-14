@@ -4,12 +4,32 @@ public class Film implements Serializable, Comparable<Film> {
     private String titolo;
     private Integer anno;
     private Integer durata;
+    private Integer voto;
+    private Boolean visto;
 
 
-    public Film(String titolo,Integer anno,Integer durata) {
+    public Film(String titolo,Integer anno,Integer durata,Integer voto,Boolean visto) {
         this.titolo = titolo;
         this.anno = anno;
         this.durata = durata;
+        this.voto = voto;
+        this.visto = visto;
+    }
+
+    public Integer getVoto() {
+        return voto;
+    }
+
+    public void setVoto(Integer voto) {
+        this.voto = voto;
+    }
+
+    public Boolean getVisto() {
+        return visto;
+    }
+
+    public void setVisto(Boolean visto) {
+        this.visto = visto;
     }
 
     public String getTitolo() {
@@ -46,6 +66,8 @@ public class Film implements Serializable, Comparable<Film> {
                 "titolo='" + titolo + '\'' +
                 ", anno=" + anno +
                 ", durata=" + durata +
+                ", voto=" + voto +
+                ", visto=" + visto +
                 '}';
     }
 

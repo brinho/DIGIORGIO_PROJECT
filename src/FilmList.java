@@ -29,7 +29,7 @@ public class FilmList {
     public ArrayList<Film> getList() {
         ArrayList<Film> anotherlist = new ArrayList<>();
         for (Film f:list) {
-            Film x = new Film(f.getTitolo(),f.getAnno(),f.getDurata());
+            Film x = new Film(f.getTitolo(),f.getAnno(),f.getDurata(),f.getVoto(),f.getVisto());
             anotherlist.add(x);
         }
         return anotherlist;
@@ -38,7 +38,7 @@ public class FilmList {
     public ArrayList<Cortometraggio> getCortoList() {
         ArrayList<Cortometraggio> anotherlist = new ArrayList<>();
         for (Cortometraggio c:c_list) {
-            Cortometraggio x = new Cortometraggio(c.getTitolo(),c.getAnno(),c.getDurata(),c.getMetraggio());
+            Cortometraggio x = new Cortometraggio(c.getTitolo(),c.getAnno(),c.getDurata(),c.getVoto(),c.getVisto(),c.getMetraggio());
             anotherlist.add(x);
         }
         return anotherlist;

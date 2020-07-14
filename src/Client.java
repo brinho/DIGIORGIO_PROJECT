@@ -49,7 +49,11 @@ public class Client {
                             int anno = sc1.nextInt();
                             System.out.print("Durata(minuti):");
                             int durata = sc1.nextInt();
-                            Film f1 = new Film(titolo, anno, durata);
+                            System.out.print("Visto(inserire true o false):");
+                            boolean visto = sc1.nextBoolean();
+                            System.out.print("Voto(da 1 a 10):");
+                            int voto = sc1.nextInt();
+                            Film f1 = new Film(titolo, anno, durata,voto,visto);
                             server.addFilm(f1);
                         } else if( scelta1 == 2 ) {
                             System.out.print("Titolo:");
@@ -61,7 +65,11 @@ public class Client {
                             int durata2 = sc1.nextInt();
                             System.out.print("Metraggio(metri):");
                             int metraggio = sc1.nextInt();
-                            Cortometraggio c1 = new Cortometraggio(titolo2,anno2,durata2,metraggio);
+                            System.out.print("Visto(inserire true o false):");
+                            boolean visto2 = sc1.nextBoolean();
+                            System.out.print("Voto:");
+                            int voto2 = sc1.nextInt();
+                            Cortometraggio c1 = new Cortometraggio(titolo2,anno2,durata2,voto2,visto2,metraggio);
                             server.addCorto(c1);
                         }else{
                             System.out.println("Inserimento non valido, riprovare!");
@@ -146,11 +154,12 @@ public class Client {
                         int scelta7 = sc2.nextInt();
                         if( scelta7== 1){
                             System.out.println("Scegli come riordinare la tua lista di film !");
-                            System.out.print("Inserire [1] per titolo , [2] per anno , [3] per durata:");
+                            System.out.print("Inserire [1] per titolo , [2] per anno , [3] per durata , [4] per voto:");
                             int scelta8 = sc2.nextInt();
                             ArrayList<Film> complete_list = server.getList();
                             YearComparator fc = new YearComparator();
                             TimeComparator tc = new TimeComparator();
+                            VotoComparator vc = new VotoComparator();
                             if (scelta8 == 1 ){
                                 Collections.sort(complete_list);
                                 System.out.println(complete_list);
@@ -163,7 +172,11 @@ public class Client {
                                 Collections.sort(complete_list,tc);
                                 System.out.println(complete_list);
                                 System.out.println("Sorted film list by time!");
-                            }else{
+                            } else if(scelta8 == 4 ){
+                            Collections.sort(complete_list,vc);
+                            System.out.println(complete_list);
+                            System.out.println("Sorted film list by voto!");
+                            } else{
                                 System.out.println("Inserimento non valido, riprovare!");
                             }
                         }else if(scelta7== 2){
