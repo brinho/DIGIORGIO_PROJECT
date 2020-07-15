@@ -10,14 +10,6 @@ public class User implements Serializable {
     private Boolean active;//di default messo a false
 
 
-
-    public User(String username, String pass,FilmList list) {
-        this.username = username;
-        this.pass = String.valueOf(pass.hashCode());
-        this.list = list;
-        this.active = false;
-    }
-
     public User(String username, String pass, String name, String surname, FilmList list) {
         this.username = username;
         this.pass = String.valueOf(pass.hashCode());
@@ -52,7 +44,7 @@ public class User implements Serializable {
     }
 
     public Boolean login(String username, String pass) {
-        if (username.equals(this.username) && pass.equals(this.pass) && !active) {
+        if (username.equals(this.username) && pass.equals(this.pass.hashCode()) && !active) {
             active = true;
             return true;
         }else
