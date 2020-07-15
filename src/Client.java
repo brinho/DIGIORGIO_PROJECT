@@ -25,6 +25,47 @@ public class Client {
             Scanner user_input = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
             Scanner sc2 = new Scanner(System.in);
+            Scanner sc3 = new Scanner(System.in);
+            Scanner access = new Scanner(System.in);
+            int choice_access = sc3.nextInt();
+            boolean go2= true;
+            FilmList list1 = new FilmList();
+            User u = null;
+            while(go2) {
+                System.out.println("Benvenuto in Film Diary!");
+                System.out.print("Opzioni di accesso [1] registrazione, [2] login :");
+                if (choice_access == 1) { //REGISTRAZIONE
+                    System.out.print("Username: ");
+                    String username1 = access.next();
+                    System.out.print("Name: ");
+                    String name1 = access.next();
+                    System.out.print("Surname: ");
+                    String surnname1 = access.next();
+                    System.out.print("Password: ");
+                    String password1 = access.next();
+                    u = new User(username1, name1, surnname1, password1, list1);
+                    server.registerUser(username1, u);
+                    System.out.println(username1 + " Adesso puoi loggarti");
+                } else if (choice_access == 2) {//LOGIN
+                    System.out.print("Username: ");
+                    String username2 = access.next();
+                    System.out.print("Password: ");
+                    String password2 = access.next();
+                    server.loginUser(username2, password2);
+                    go2=false;
+
+                } else {
+                    System.out.println("Opzione inesistente!");
+                    go=false;
+                }
+
+            }
+            //Devo chiedere all'utente se vuole registrarsi o loggare
+            //Se vuole registrarsi parte la funzione registrazione di User
+            //una volta registrato deve loggarsi e fa fare il login
+            //se vuole loggare inserisce username e pass : se il login ha successo prosegue nel while go
+            //altrimenti metti go=false ed esci.
+
 
             while (go) {
 
@@ -57,11 +98,11 @@ public class Client {
                                 System.out.print("Voto(da 1 a 10):");
                                 int voto = sc1.nextInt();
                                 Film f1 = new Film(titolo, anno, durata,voto,visto);
-                                server.addFilm(f1);
+                                server.addFilm(u.getUsername(),f1);
                             }
                             else{
                                 Film f2 = new Film(titolo, anno, durata,visto);
-                                server.addFilm(f2);
+                                server.addFilm(u.getUsername(),f2);
                             }
 
                         } else if( scelta1 == 2 ) {
@@ -80,11 +121,11 @@ public class Client {
                                 System.out.print("Voto(da 1 a 10):");
                                 int voto2 = sc1.nextInt();
                                 Cortometraggio c1 = new Cortometraggio(titolo2,anno2,durata2,voto2,visto2,metraggio);
-                                server.addCorto(c1);
+                                server.addCorto(u.getUsername(),c1);
                             }
                             else{
                                 Cortometraggio c2 = new Cortometraggio(titolo2,anno2,durata2,visto2,metraggio);
-                                server.addCorto(c2);
+                                server.addCorto(u.getUsername(),c2);
                             }
 
 
@@ -103,9 +144,9 @@ public class Client {
                             if (scelta3 == 1) {
                                 System.out.print("Indice del film da rimuovere:");
                                 int index = sc1.nextInt();
-                                server.removeFilm(index);
+                                server.removeFilm(u.getUsername(),index);
                             } else if (scelta3 == 2) {
-                                server.removeAll();
+                                server.removeAll(u.getUsername());
                                 System.out.println("The film list is now empty!");
                             }else{
                                 System.out.println("Inserimento non valido, riprovare!");
@@ -116,9 +157,9 @@ public class Client {
                             if (scelta4 == 1) {
                                 System.out.print("Indice del cortometraggio da rimuovere:");
                                 int index = sc1.nextInt();
-                                server.removeCorto(index);
+                                server.removeCorto(u.getUsername(),index);
                             } else if (scelta4 == 2) {
-                                server.removeCortoAll();
+                                server.removeCortoAll(u.getUsername());
                                 System.out.println("The corto list is now empty!");
                             }else{
                                 System.out.println("Inserimento non valido, riprovare!");
@@ -133,7 +174,7 @@ public class Client {
                         System.out.print("Opzioni di list: [1] list film , [2] list cortometraggio :");
                         int scelta5 = sc2.nextInt();
                         if( scelta5 == 1 ){
-                            ArrayList<Film> f_list = server.getList();
+                            ArrayList<Film> f_list = server.getList(u.getUsername());
                         if(f_list.isEmpty()){
                             System.out.println("Empty film list!");
                         }else {
@@ -141,7 +182,7 @@ public class Client {
                             System.out.println(f_list);
                         }
                         }else if ( scelta5 == 2 ){
-                            ArrayList<Cortometraggio> c_list = server.getCortoList();
+                            ArrayList<Cortometraggio> c_list = server.getCortoList(u.getUsername());
                             if(c_list.isEmpty()){
                                 System.out.println("Empty corto list!");
                             }else {
@@ -156,12 +197,12 @@ public class Client {
                         System.out.print("Opzioni di save: [1] save film , [2] save cortometraggio :");
                         int scelta6 = sc2.nextInt();
                         if(scelta6 == 1){
-                            ArrayList<Film> list = server.getList();
-                            server.saveList(list);
+                            ArrayList<Film> list = server.getList(u.getUsername());
+                            server.saveList(u.getUsername(),list);
                             System.out.println("Film Save completed!");
                         }else if(scelta6 == 2) {
-                            ArrayList<Cortometraggio> c1_list = server.getCortoList();
-                            server.saveCortoList(c1_list);
+                            ArrayList<Cortometraggio> c1_list = server.getCortoList(u.getUsername());
+                            server.saveCortoList(u.getUsername(),c1_list);
                             System.out.println("Corto Save completed!");
                         }else{
                             System.out.println("Inserimento non valido, riprovare!");
@@ -174,7 +215,7 @@ public class Client {
                             System.out.println("Scegli come riordinare la tua lista di film !");
                             System.out.print("Inserire [1] per titolo , [2] per anno , [3] per durata , [4] per voto:");
                             int scelta8 = sc2.nextInt();
-                            ArrayList<Film> complete_list = server.getList();
+                            ArrayList<Film> complete_list = server.getList(u.getUsername());
                             YearComparator fc = new YearComparator();
                             TimeComparator tc = new TimeComparator();
                             VotoComparator vc = new VotoComparator();
@@ -198,7 +239,7 @@ public class Client {
                                 System.out.println("Inserimento non valido, riprovare!");
                             }
                         }else if(scelta7== 2){
-                            ArrayList<Cortometraggio> complete_c_list = server.getCortoList();
+                            ArrayList<Cortometraggio> complete_c_list = server.getCortoList(u.getUsername());
                             LengthComparator lc = new LengthComparator();
                             Collections.sort(complete_c_list,lc);
                             System.out.println(complete_c_list);
@@ -213,12 +254,12 @@ public class Client {
                         System.out.print("Opzioni di save: [1] save film , [2] save cortometraggio :");
                         int scelta9 = sc2.nextInt();
                         if(scelta9 == 1){
-                            ArrayList<Film> list = server.getList();
-                            server.saveFilmFile(list);
+                            ArrayList<Film> list = server.getList(u.getUsername());
+                            server.saveFilmFile(u.getUsername(),list);
                             System.out.println("Film Save on file completed!");
                         }else if(scelta9 == 2) {
-                            ArrayList<Cortometraggio> c1_list = server.getCortoList();
-                            server.saveCortoFile(c1_list);
+                            ArrayList<Cortometraggio> c1_list = server.getCortoList(u.getUsername());
+                            server.saveCortoFile(u.getUsername(),c1_list);
                             System.out.println("Corto Save on file completed!");
                         }else{
                             System.out.println("Inserimento non valido, riprovare!");

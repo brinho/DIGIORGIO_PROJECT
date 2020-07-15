@@ -5,9 +5,11 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Server extends UnicastRemoteObject implements Services {
-    FilmList film_list = new FilmList();
+
+    HashMap<String,User> user_list = new HashMap<String,User>();
 
     public Server() throws RemoteException {
         //super(1103);
@@ -15,75 +17,91 @@ public class Server extends UnicastRemoteObject implements Services {
     }
 
     @Override
-    public ArrayList<Film> getList() throws RemoteException {
+    public void registerUser(String username,User u) throws RemoteException {
+        user_list.put(username,u);
+    }
+
+    @Override
+    public Boolean loginUser(String username,String pass){
+        if(user_list.containsKey(username)){
+            System.out.println("SERVER LOG :" + username +" login successful!");
+           return user_list.get(username).login(username,pass);
+        }
+        return false;
+    }
+
+    @Override
+    public ArrayList<Film> getList(String username) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking getList()");
-        return film_list.getList();
+        return user_list.get(username).getList();
     }
 
     @Override
-    public ArrayList<Cortometraggio> getCortoList() throws RemoteException {
+    public ArrayList<Cortometraggio> getCortoList(String username) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking getCortoList()");
-        return film_list.getCortoList();
+        return user_list.get(username).getCortoList();
     }
 
 
     @Override
-    public void addFilm(Film f) throws RemoteException {
+    public void addFilm(String username,Film f) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking addFilm()");
-        film_list.addFilm(f);
+        user_list.get(username).addFilm(f);
     }
 
     @Override
-    public void addCorto(Cortometraggio c) throws RemoteException {
+    public void addCorto(String username,Cortometraggio c) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking addCorto()");
-        film_list.addCorto(c);
+        user_list.get(username).addCorto(c);
     }
 
     @Override
-    public void removeFilm(int index) throws RemoteException {
+    public void removeFilm(String username,int index) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking removeFilm()");
-        film_list.removeFilm(index);
+        user_list.get(username).removeFilm(index);
     }
 
-    public void removeAll() throws RemoteException {
+    public void removeAll(String username) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking removeAll()");
-        film_list.removeAll();
+        user_list.get(username).removeAll();
     }
 
     @Override
-    public void removeCorto(int index) throws RemoteException {
+    public void removeCorto(String username,int index) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking removeCorto()");
-        film_list.removeCorto(index);
+        user_list.get(username).removeCorto(index);
     }
 
-    public void removeCortoAll() throws RemoteException {
+    public void removeCortoAll(String username) throws RemoteException {
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking removeCortoAll()");
-        film_list.removeCortoAll();
+        user_list.get(username).removeCortoAll();
     }
 
     @Override
-    public void saveList(ArrayList<Film> list) throws RemoteException{
+    public void saveList(String username,ArrayList<Film> list) throws RemoteException{
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking saveList()");
-        film_list.saveList(list);
+        user_list.get(username).saveList(list);
     }
 
     @Override
-    public void saveCortoList(ArrayList<Cortometraggio> list) throws RemoteException{
+    public void saveCortoList(String username,ArrayList<Cortometraggio> list) throws RemoteException{
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking saveCortoList()");
-        film_list.saveCortoList(list);
+        user_list.get(username).saveCortoList(list);
     }
 
     @Override
-    public void saveFilmFile(ArrayList<Film> list) throws RemoteException{
+    public void saveFilmFile(String username,ArrayList<Film> list) throws RemoteException{
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking saveFilmFile()");
-        film_list.saveFilmFile(list);
+        user_list.get(username).saveFilmFile(list);
     }
 
     @Override
-    public void saveCortoFile(ArrayList<Cortometraggio> c_list) throws RemoteException{
+    public void saveCortoFile(String username,ArrayList<Cortometraggio> c_list) throws RemoteException{
         System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " invoking saveCortoFile()");
-        film_list.saveCortoFile(c_list);
+        user_list.get(username).saveCortoFile(c_list);
     }
+
+
 
 
     public static void main(String[] args){
