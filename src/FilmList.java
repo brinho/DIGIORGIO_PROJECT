@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class FilmList {
+public class FilmList implements Serializable{
 
     private ArrayList<Film> list = new ArrayList<>();
     private ArrayList<Cortometraggio> c_list = new ArrayList<>();
