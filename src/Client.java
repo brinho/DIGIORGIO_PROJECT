@@ -27,13 +27,14 @@ public class Client {
             Scanner sc2 = new Scanner(System.in);
             Scanner sc3 = new Scanner(System.in);
             Scanner access = new Scanner(System.in);
-            int choice_access = sc3.nextInt();
+
             boolean go2= true;
             FilmList list1 = new FilmList();
             User u = null;
             while(go2) {
                 System.out.println("Benvenuto in Film Diary!");
                 System.out.print("Opzioni di accesso [1] registrazione, [2] login :");
+                int choice_access = sc3.nextInt();
                 if (choice_access == 1) { //REGISTRAZIONE
                     System.out.print("Username: ");
                     String username1 = access.next();
