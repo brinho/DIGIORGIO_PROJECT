@@ -13,8 +13,8 @@ public class Server extends UnicastRemoteObject implements Services {
     HashMap<String,User> user_list = new HashMap<String,User>();
 
     public Server() throws RemoteException {
-        //super(1103);
-        super();
+        super(1103);
+        //super();
     }
 
     public HashMap<String, User> getUser_list() {
@@ -132,8 +132,8 @@ public class Server extends UnicastRemoteObject implements Services {
         System.out.println("------------------------");
         try {
             // if not localhost
-            //System.setProperty("java.rmi.server.hostname","whitelodge.ns0.it");
-            //Registry registry = LocateRegistry.getRegistry();
+            System.setProperty("java.rmi.server.hostname","whitelodge.ns0.it");
+            Registry registry = LocateRegistry.getRegistry();
 
             Services services = new Server();
             Naming.rebind("filmservice",services);
