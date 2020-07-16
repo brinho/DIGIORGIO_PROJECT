@@ -7,16 +7,20 @@ public class User implements Serializable {
     private String name;
     private String surname;
     private FilmList list;
-    private Boolean active;//di default messo a false
+    private Boolean active;
 
 
     public User(String username, String pass, String name, String surname, FilmList list) {
         this.username = username;
-        this.pass = String.valueOf(pass.hashCode());
+        this.pass = pass;
         this.name = name;
         this.surname = surname;
         this.list = list;
-        this.active = false;
+        this.active = false; //di default messo a false
+    }
+
+    public String getPass() {
+        return pass;
     }
 
     public String getUsername() {
@@ -44,16 +48,16 @@ public class User implements Serializable {
     }
 
     public Boolean login(String username, String pass) {
-        if (username.equals(this.username) && pass.equals(this.pass.hashCode()) && !active) {
+        if (username.equals(this.username) && pass.equals(this.pass) && !active) {
             active = true;
             return true;
-        }else
+        }else {
             return false;
+        }
     }
 
     public void logout() {
         active = false;
-
     }
 
 
@@ -89,21 +93,30 @@ public class User implements Serializable {
         list.removeCortoAll();
     }
 
-    public void saveList(ArrayList<Film> film_list) {
-        list.saveList(film_list);
+    public void saveList(ArrayList<Film> film_list,String username) {
+        list.saveList(film_list,username);
     }
 
-    public void saveCortoList(ArrayList<Cortometraggio> corto_list) {
-        list.saveCortoList(corto_list);
+    public void saveCortoList(ArrayList<Cortometraggio> corto_list,String username) {
+        list.saveCortoList(corto_list,username);
     }
 
-    public void saveFilmFile(ArrayList<Film> film_list){
-        list.saveFilmFile(film_list);
+    public void saveFilmFile(ArrayList<Film> film_list,String username){
+        list.saveFilmFile(film_list,username);
     }
 
-    public void saveCortoFile(ArrayList<Cortometraggio> corto_list){
-        list.saveCortoFile(corto_list);
+    public void saveCortoFile(ArrayList<Cortometraggio> corto_list,String username){
+        list.saveCortoFile(corto_list,username);
     }
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", list=" + list.toString() +
+                ", active=" + active +
+                '}';
+    }
 }

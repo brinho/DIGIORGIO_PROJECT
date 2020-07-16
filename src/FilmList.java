@@ -41,8 +41,9 @@ public class FilmList implements Serializable{
         return anotherlist;
     }
 
-    public void saveList(ArrayList<Film> list){
-        try (var oos = new ObjectOutputStream(new FileOutputStream("film.ser"))) {
+    public void saveList(ArrayList<Film> list,String username){
+        String nome_file = username + "_film.ser";
+        try (var oos = new ObjectOutputStream(new FileOutputStream(nome_file))) {
             oos.writeObject(list);
             //oos.close();
         } catch (FileNotFoundException e) {
@@ -52,8 +53,9 @@ public class FilmList implements Serializable{
         }
     }
 
-    public void saveCortoList(ArrayList<Cortometraggio> list){
-        try (var oos = new ObjectOutputStream(new FileOutputStream("corto.ser"))) {
+    public void saveCortoList(ArrayList<Cortometraggio> list,String username){
+        String nome_file = username + "_corto.ser";
+        try (var oos = new ObjectOutputStream(new FileOutputStream(nome_file))) {
             oos.writeObject(list);
             //oos.close();
         } catch (FileNotFoundException e) {
@@ -63,21 +65,30 @@ public class FilmList implements Serializable{
         }
     }
 
-    public void saveFilmFile(ArrayList<Film> list){
-        try (var myWriter = new BufferedWriter(new FileWriter(("film_list.txt"))))  {
+    public void saveFilmFile(ArrayList<Film> list,String username){
+        String nome_file = username + "_film_list.txt";
+        try (var myWriter = new BufferedWriter(new FileWriter((nome_file))))  {
             myWriter.write(list.toString());
-            System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " Scritto correttamente sul file!");
+            System.out.println("SERVER LOG : "+username+ " Scritto correttamente sul file!");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void saveCortoFile(ArrayList<Cortometraggio> c_list){
-        try (var myWriter = new BufferedWriter(new FileWriter(("corto_list.txt"))))  {
+    public void saveCortoFile(ArrayList<Cortometraggio> c_list,String username){
+        String nome_file = username + "_corto_list.txt";
+        try (var myWriter = new BufferedWriter(new FileWriter((nome_file))))  {
             myWriter.write(c_list.toString());
-            System.out.println("SERVER LOG by Thread: "+Thread.currentThread().getName()+ " Scritto correttamente sul file!");
+            System.out.println("SERVER LOG : "+username+ " Scritto correttamente sul file!");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public String toString() {
+        return "{ Film_list=" + list +
+                ", corto_list=" + c_list +
+                '}';
     }
 }
